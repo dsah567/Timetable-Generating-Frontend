@@ -36,7 +36,7 @@ export default function Header() {
 
                 {/* Left Part - Logo */}
                 <Link to="/" className="flex items-center">
-                <img src="/logo.png" alt="Logo" className="h-8 w-auto mr-2" />
+                {/* <img src="/logo.png" alt="Logo" className="h-8 w-auto mr-2" /> */}
                 <span className="text-white text-lg font-bold">Timetable</span>
                 </Link>
 
@@ -44,24 +44,24 @@ export default function Header() {
                 <>
                 <ul className="flex space-x-4">
                     <li>
-                    <NavLink to="/" className={({ isActive }) =>`text-white ${ isActive ?  "text-red-400" : "text-gray-700"}  hover:text-gray-300`}>
+                    <NavLink to="/" className={({ isActive }) =>`text-white ${ isActive ?  "text-red-500" : "text-gray-700"}  hover:text-gray-300`}>
                                             Home </NavLink>
                     </li>
                     {isLoggedIn && 
                     <>
                     <li>
-                    <NavLink to="/profile" className={({ isActive }) =>`text-white ${ isActive ?  "text-red-400" : "text-gray-700"}  hover:text-gray-300 `} >Profile</NavLink>
+                    <NavLink to="/profile" className={({ isActive }) =>`text-white ${ isActive ?  "text-red-500" : "text-gray-700"}  hover:text-gray-300 `} >Profile</NavLink>
                     </li> 
                     <li>
-                    <NavLink to="/inputdetails" className={({ isActive }) =>`text-white hover:text-gray-300 ${ isActive ?  "text-red-400" : "text-gray-700"}`} >Input Details</NavLink>
+                    <NavLink to="/inputdetails" className={({ isActive }) =>`text-white hover:text-gray-300 ${ isActive ?  "text-red-500" : "text-gray-700"}`} >Input Details</NavLink>
                     </li>
                     <li>
-                    <NavLink to="/generatedtimetable" className={({ isActive }) =>`text-white hover:text-gray-300 ${ isActive ?  "text-red-400" : "text-gray-700"}`} >Genreated Timetable</NavLink>
+                    <NavLink to="/generatedtimetable" className={({ isActive }) =>`text-white hover:text-gray-300 ${ isActive ?  "text-red-500" : "text-gray-700"}`} >Genreated Timetable</NavLink>
                     </li>
                     </>
                     }
                     <li>
-                    <NavLink to="/github" className={({ isActive }) =>`text-white hover:text-gray-300 ${isActive ?  "text-red-400" : "text-gray-700"}`}>
+                    <NavLink to="/github" className={({ isActive }) =>`text-white hover:text-gray-300 ${isActive ?  "text-red-500" : "text-gray-700"}`}>
                                             github </NavLink>
                     </li>
                 </ul>
@@ -73,16 +73,16 @@ export default function Header() {
                         <button onClick={logout} className="text-white hover:text-gray-300">Logout</button>
                     ) : (
                     <>
-                        <NavLink to="/login" className={({ isActive }) =>`text-white hover:text-gray-300 ${ isActive ?  "text-red-400" : "text-gray-700"}  `} >Login</NavLink>
+                        <NavLink to="/login" className={({ isActive }) =>`text-white hover:text-gray-300 ${ isActive ?  "text-red-500" : "text-gray-700"}  `} >Login</NavLink>
                         <span className="text-white mx-2">|</span>
-                        <NavLink to="/signup" className={({ isActive }) =>`text-white hover:text-gray-300 ${ isActive ?  "text-red-400" : "text-gray-700"}  `} >Signup</NavLink>
+                        <NavLink to="/signup" className={({ isActive }) =>`text-white hover:text-gray-300 ${ isActive ?  "text-red-500" : "text-gray-700"}  `} >Signup</NavLink>
                     </>
                     )}
                 </div>
             </nav>
+            <div className=" bg-gradient-to-br from-purple-500 to-pink-500 h-screen">
                 <Outlet />
+            </div>
             </>
-        )
-    
-    
+        )   
 }
