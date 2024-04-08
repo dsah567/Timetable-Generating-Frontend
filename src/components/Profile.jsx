@@ -12,7 +12,7 @@ function Profile() {
             <label className="block text-gray-700 text-2xl font-bold mb-2">Email : {Data.User.email}</label>
             <label className="block text-gray-700 text-2xl font-bold mb-2">Username : {Data.User.username}</label>
             <label className="block text-gray-700 text-2xl font-bold mb-2">Department Detail  : {Data.Department? "Completed" : "Not Completed"}</label>
-            <label className="block text-gray-700 text-2xl font-bold mb-2">Timetable   : {Data.Timetable? "Generated" : "Not Generated"}</label>
+            <label className="block text-gray-700 text-2xl font-bold mb-2">Timetable   : {Data.TimetableStatus? "Generated" : "Not Generated"}</label>
             </div>
             </div>
         </div> 

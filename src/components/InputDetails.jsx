@@ -13,10 +13,15 @@ function InputDetails() {
     });
 
     const [noOfClasses,setNoOfClasses] = useState(0)
+    const [noOfTeachers,setNoOfTeachers] = useState(0)
+    const [subjectSpecifi,setSubjectSpecifi] = useState(0)
     const [displayClassesFilelds, setDisplayClassesFilelds] = useState(null);
-    // const [prev,setPrev]=useState(null)
+    const [displayTeacherIDFilelds, setDisplayTeacherIDFilelds] = useState(null);
+    const [displaySubjectSpecifiFileld, setDisplaySubjectSpecifiFileld] = useState(null);
+    //const [prev,setPrev]=useState(null)
     let [classes,setClasses] =useState([])
-    let [teacherID,setTeacherID] = useState({})
+    const [teachers,setTeachers]=useState([])
+    const [specificSub,setSpecificSub]=useState([])
     
 
     const workingDayHandleInputChange = ( e) => {
@@ -34,6 +39,18 @@ function InputDetails() {
     setDisplayClassesFilelds(e.target.value? true :false)
     // console.log("genreateClassesFileld");
   }
+  const genreateTeacherIDFileld=(e)=>{
+    setDisplayTeacherIDFilelds(false)
+    setNoOfTeachers(parseInt(e.target.value))
+    setDisplayTeacherIDFilelds(e.target.value? true :false)
+  }
+
+  const genreateSubjectSpecifiFileld =(e)=>{
+    setDisplaySubjectSpecifiFileld(false)
+    setSubjectSpecifi(parseInt(e.target.value))
+    setDisplaySubjectSpecifiFileld(e.target.value? true :false)
+  }
+
   const handleClassesSubjectChange=(e)=>{
     const { name, value } = e.target;
     const formData = JSON.parse(value);
@@ -54,34 +71,42 @@ function InputDetails() {
         console.log(formData);
   }
   const handleteacherChange=(e)=>{
-    const { name, value } = e.target;
-    const formData = JSON.parse(value);
-    setTeacherID(formData)
+    let  { name, value } = e.target;
+    console.log(`val ${value}`);
+    console.log(JSON.parse(`${value}`));
+    const formData = JSON.parse(`${value}`);
+    const i = parseInt(name);
+    console.log(i);
+    const newArray= [...teachers]
+    newArray[i]=formData
+    setTeachers(newArray)
   }
-
+  const handlesubjectSpecifiChange=(e)=>{
+    let  { name, value } = e.target;
+    console.log(`val ${value}`);
+    console.log(JSON.parse(`${value}`));
+    const formData = JSON.parse(`${value}`);
+    const i = parseInt(name);
+    console.log(i);
+    const newArray= [...specificSub]
+    newArray[i]=formData
+    setSpecificSub(newArray)
+  }
   const  handelPrev = ()=>{
-    console.log(workingDay,classes,teacherID);
+    console.log(workingDay,classes,teachers,specificSub);
+    // setPrev(true)
   }
 
-  const addTimetable=()=>{
-    const _array=[]
-    const count = parseInt(workingDay.fullWorkingDayNo)+parseInt(workingDay.halfWorkingDayNo)
-    for(let i=0;i<count;i++){
-      _array.push([])
-    }
-    classes.forEach((arr)=>{
-      arr.timetable=_array
-    })
-  }
   const handleSubmit = async (e) => {
     e.preventDefault();
-    addTimetable()
+    console.log(workingDay,classes,teachers,specificSub);
     await axios.post("/api/v1/department",{workingday:workingDay,
                                             classes:classes,
-                                            teacherID:teacherID})
+                                            teacherID:teachers,
+                                            specificSub:specificSub})
                 .then((res)=>console.log(res.data.message))
                 .catch((err)=>console.log(err))
-                window.location.href="/generatedtimetable"
+              //  window.location.href="/generatedtimetable"
                 
   };
 
@@ -89,33 +114,33 @@ function InputDetails() {
     <>
     <div className=" bg-gradient-to-br from-purple-500 to-pink-500">
       <div>
-      <div className="flex justify-center items-center h-screen">
+      <div className=" h-screen">
         <form className="bg-gray-100 shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">Enter the no of full working days:</label>
+          <div className="mb-4 ">
+            <label className="w-full text-gray-700 text-sm font-bold mb-2">Enter the no of full working days:</label>
             <input
-              type="number"
+              type="number" placeholder='Enter the no of full working days'
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               onChange={workingDayHandleInputChange}
               name='fullWorkingDayNo'
             />
             <label className="block text-gray-700 text-sm font-bold mb-2">Enter the no of half working days:</label>
             <input
-              type="number"
+              type="number" placeholder='Enter the no of half working days:'
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               onChange={workingDayHandleInputChange}
               name='halfWorkingDayNo'
             />
             <label className="block text-gray-700 text-sm font-bold mb-2">Enter the no of period in full working days:</label>
             <input
-              type="number"
+              type="number" placeholder='Enter the no of period in full working days'
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               onChange={workingDayHandleInputChange}
               name='periodInFullWorkingDay'
             />
             <label className="block text-gray-700 text-sm font-bold mb-2">Enter the no of period in half working days:</label>
             <input
-              type="number"
+              type="number" placeholder='Enter the no of period in half working days'
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               onChange={workingDayHandleInputChange}
               name='periodBeforeBreak'
@@ -123,7 +148,7 @@ function InputDetails() {
 
           <label className="block text-gray-700 text-sm font-bold mb-2">Enter the no of Classes:</label>
             <input
-              type="number"
+              type="number" placeholder='Enter the no of Classes'
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               onChange={genreateClassesFileld}
               name='noOfClasses'
@@ -132,9 +157,12 @@ function InputDetails() {
           </div>
           {displayClassesFilelds && (
           <ul>
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              Enter SubjectID and Teaching hours in a week in format  {'{ "sub1":"5","sub2":"7"}'}
+            </label>
             {[...Array(noOfClasses)].map((_, index) => (
               <li key={index}>
-                <input  placeholder={`No of subjects for Classes${index + 1}`}
+                <input  placeholder={`subjectID and teaching hour for Classes${index + 1}`}
                 name= {` Classes${index}`}
                 type="textarea"
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
@@ -142,24 +170,67 @@ function InputDetails() {
               </li>
             ))}
 
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+            Enter SubjectID and no of continious period in format  {'{ "sub1":"5","sub2":"7"}'} if no continious period for any classes leave empty 
+            </label>
             {[...Array(noOfClasses)].map((_, index) => (
               <li key={index}>
-                <input  placeholder={`No of Repeated subjects for Classes${index + 1}`}
+                <input  placeholder={`SubjectID and no of continious period for Classes${index + 1}`}
                 name= {` Classes${index}`}
                 type="textarea"
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
                 onChange={handleClassesSubjectRepeatChange}/>
               </li>
             ))}
-            <li >
-                <input  placeholder={`Enter TeacherID With subjectID`}
-                name= "teacherID"
-                type="textarea"
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
-                onChange={handleteacherChange}/>
-              </li>
           </ul>
         )}
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              Enter no of teachers
+            </label>
+            <input  placeholder={`no of teachers`}
+            name= "teacherID"
+            type="number"
+            className="shadow appearance-none border rounded w-full py-2 px-3 mb-4 text-gray-70leading-tight focus:outline-none focus:shadow-outline" 
+            onChange={genreateTeacherIDFileld}/>
+
+            {displayTeacherIDFilelds &&
+            (
+              <ul>
+              {[...Array(noOfTeachers)].map((_, index) => (
+                <li key={index}>
+                <input  placeholder={`Enter TeacherID With subjectID`}
+                name= {`${index}`}
+                type="textarea"
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-70leading-tight focus:outline-none focus:shadow-outline" 
+                onChange={handleteacherChange}/>   
+                </li>
+                ))}
+                </ul>
+            )}
+
+            <label className="block text-gray-700 text-sm font-bold mb-2">
+              Enter no of Subjects to be in specific period
+            </label>
+            <input  placeholder={`Subjects to be in specific period`}
+            name= "subjectSpecifi"
+            type="number"
+            className="shadow appearance-none border rounded w-full py-2 px-3 mb-4 text-gray-70leading-tight focus:outline-none focus:shadow-outline" 
+            onChange={genreateSubjectSpecifiFileld}/>
+
+            {displaySubjectSpecifiFileld &&
+            (
+              <ul>
+              {[...Array(subjectSpecifi)].map((_, index) => (
+                <li key={index}>
+                <input  placeholder={`Enter subjectID with day number and periods number`}
+                name= {`${index}`}
+                type="textarea"
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-70leading-tight focus:outline-none focus:shadow-outline" 
+                onChange={handlesubjectSpecifiChange}/>   
+                </li>
+                ))}
+                </ul>
+            )}
 
         
         
@@ -167,15 +238,14 @@ function InputDetails() {
           onClick={handelPrev}>Click for preview</label> 
           
 
-        {/* <br/>
-        {prev && (
-          <ul>
-            <li>{workingDay}</li>
-            <li>{classes}</li>
-            <li>{teacherID}</li>
+      
+        {/* {prev && (
+          <ul className="my-2">
+           {(Object.keys(workingDay)).map((ele,index)=><li key={index}>{ele} : {workingDay[ele]}</li>)}
+             <li>{classes.forEach((ele,index)=>ele.subjectID)}</li>  
+             <li>{teachers.forEach(ele=><li>{Object.keys(ele)}</li>)}</li> 
           </ul>
-        )}
-        <br/> */}
+        )} */}
           
             
 
