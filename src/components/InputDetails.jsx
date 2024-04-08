@@ -122,28 +122,28 @@ function InputDetails() {
               type="number" placeholder='Enter the no of full working days'
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               onChange={workingDayHandleInputChange}
-              name='fullWorkingDayNo'
+              name='fullWorkingDayNo' required
             />
             <label className="block text-gray-700 text-sm font-bold mb-2">Enter the no of half working days:</label>
             <input
-              type="number" placeholder='Enter the no of half working days:'
+              type="number" placeholder='Enter the no of half working days, if there is no half working days put 0'
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               onChange={workingDayHandleInputChange}
-              name='halfWorkingDayNo'
+              name='halfWorkingDayNo' required
             />
             <label className="block text-gray-700 text-sm font-bold mb-2">Enter the no of period in full working days:</label>
             <input
               type="number" placeholder='Enter the no of period in full working days'
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               onChange={workingDayHandleInputChange}
-              name='periodInFullWorkingDay'
+              name='periodInFullWorkingDay' required
             />
-            <label className="block text-gray-700 text-sm font-bold mb-2">Enter the no of period in half working days:</label>
+            <label className="block text-gray-700 text-sm font-bold mb-2">Enter the no of period before break:</label>
             <input
-              type="number" placeholder='Enter the no of period in half working days'
+              type="number" placeholder='Enter the no of period before break, if there is no break put 0'
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               onChange={workingDayHandleInputChange}
-              name='periodBeforeBreak'
+              name='periodBeforeBreak' required
             />
 
           <label className="block text-gray-700 text-sm font-bold mb-2">Enter the no of Classes:</label>
@@ -151,27 +151,27 @@ function InputDetails() {
               type="number" placeholder='Enter the no of Classes'
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               onChange={genreateClassesFileld}
-              name='noOfClasses'
+              name='noOfClasses' required
             />
           <br/>
           </div>
           {displayClassesFilelds && (
           <ul>
             <label className="block text-gray-700 text-sm font-bold mb-2">
-              Enter SubjectID and Teaching hours in a week in format  {'{ "sub1":"5","sub2":"7"}'}
+              Enter SubjectID and Teaching hours ( periods) per week of that subject in format  {'{ "sub1":"5","sub2":"7"}'} for each classes
             </label>
             {[...Array(noOfClasses)].map((_, index) => (
               <li key={index}>
-                <input  placeholder={`subjectID and teaching hour for Classes${index + 1}`}
+                <input  placeholder={`subjectID and teaching hour for all subjects of  Classes${index + 1}`}
                 name= {` Classes${index}`}
                 type="textarea"
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
-                onChange={handleClassesSubjectChange}/>
+                onChange={handleClassesSubjectChange} required/> 
               </li>
             ))}
 
             <label className="block text-gray-700 text-sm font-bold mb-2">
-            Enter SubjectID and no of continious period in format  {'{ "sub1":"5","sub2":"7"}'} if no continious period for any classes leave empty 
+            Enter SubjectID and no of continious period in format  {'{ "sub1":"5","sub2":"7"}'} of paticular classes, if no continious period for any classes leave empty 
             </label>
             {[...Array(noOfClasses)].map((_, index) => (
               <li key={index}>
@@ -191,25 +191,26 @@ function InputDetails() {
             name= "teacherID"
             type="number"
             className="shadow appearance-none border rounded w-full py-2 px-3 mb-4 text-gray-70leading-tight focus:outline-none focus:shadow-outline" 
-            onChange={genreateTeacherIDFileld}/>
+            onChange={genreateTeacherIDFileld} required/>
 
             {displayTeacherIDFilelds &&
             (
               <ul>
+                <label className="block text-gray-700 text-sm font-bold mb-2">Enter TeacherID With subjectID they teach in format {'{"t1": ["cs11", "cs21"]}'}</label>
               {[...Array(noOfTeachers)].map((_, index) => (
                 <li key={index}>
-                <input  placeholder={`Enter TeacherID With subjectID`}
+                <input  placeholder={`Enter for teacher${index +1}`}
                 name= {`${index}`}
                 type="textarea"
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-70leading-tight focus:outline-none focus:shadow-outline" 
-                onChange={handleteacherChange}/>   
+                onChange={handleteacherChange} required/>   
                 </li>
                 ))}
                 </ul>
             )}
 
             <label className="block text-gray-700 text-sm font-bold mb-2">
-              Enter no of Subjects to be in specific period
+              Enter no of Subjects to be in specific period of a paticular day, if there is no ubjects to be in specific period leave blank
             </label>
             <input  placeholder={`Subjects to be in specific period`}
             name= "subjectSpecifi"
@@ -220,6 +221,9 @@ function InputDetails() {
             {displaySubjectSpecifiFileld &&
             (
               <ul>
+              <label className="block text-gray-700 text-sm font-bold mb-2">
+              Enter subjectID with day number and periods number in format {' {"cs11":["1-1","2-1"]} '} 1-1 means first day first period and 2-1 means second day and first period
+              </label>
               {[...Array(subjectSpecifi)].map((_, index) => (
                 <li key={index}>
                 <input  placeholder={`Enter subjectID with day number and periods number`}
@@ -234,8 +238,8 @@ function InputDetails() {
 
         
         
-        <label className="bg-blue-500 hover:bg-blue-700 text-white font-bold my-4 py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-          onClick={handelPrev}>Click for preview</label> 
+        {/* <label className="bg-blue-500 hover:bg-blue-700 text-white font-bold my-4 py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          onClick={handelPrev}>Click for preview</label>  */}
           
 
       
