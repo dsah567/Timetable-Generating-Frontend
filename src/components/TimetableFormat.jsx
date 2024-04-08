@@ -2,34 +2,53 @@ import React from 'react'
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
 
-function TablePerDay({day}){
+function TablePerDay({day,Index}){
     return(
-       day.map((ele,index)=><td key={index} className="bg-white border-2 text-gray-700 text-sm font-bold p-2 ">{ele}</td>)
+        <tr>
+            <th className="bg-white border-2 text-gray-700 text-lg font-bold p-2 ">Day {Index+1}</th>
+            {day.map((ele,index)=><td key={index} className="bg-white border-2 text-gray-700 text-sm font-bold p-2 ">{ele}</td>)}
+        </tr>
     )
 }
 
-function TeacherTable({subjectName,teachID}){
-    return(<div>
+function TeacherTable({subjectName,teachID,Index}){
+    return(<tr>
+        <td className="bg-white border-2 text-gray-700 text-lg font-bold p-2">{Index + 1}</td>
         <td className="bg-white border-2 text-gray-700 text-sm font-bold p-2">{subjectName}</td>
         <td className="bg-white border-2 text-gray-700 text-sm font-bold p-2">{teachID[subjectName]}</td>
-        </div>)
+        </tr>)
 }
 
 function TablePerClasses({classe,subjectList,teachID}){
+    let a =1
     return (
         <div>
-            <div className='table-auto'>
+            <table className='table-auto'>
+            <thead>
+            <tr>
+                <th className="bg-white border-2 text-gray-700 text-lg font-bold p-2"></th>
+                {classe[0].map((ele,index)=><th className="bg-white border-2 text-gray-700 text-lg font-bold p-2"> {(ele=="break")?  ( a=0,"Break") : `Period ${index+a}`}</th>)}
+            </tr>
+            </thead>
+            <tbody>
+            {classe.map((ele,index)=><TablePerDay key={index} day={ele} Index={index} />)} <br/>
+            </tbody>
+            </table>
 
-            {classe.map((ele,index)=><tr><TablePerDay key={index} day={ele} /></tr> )} <br/>
-            </div>
-
-            <div className='table-auto'>
-            {subjectList.map((ele,index)=>
-               <tr>
-                <TeacherTable key={index} subjectName={ele} teachID={teachID}/>
+            <table className='table-auto'>
+                <thead>
+                <tr>   
+                <th className="bg-white border-2 text-gray-700 text-lg font-bold p-2">S. N.</th> 
+                <th className="bg-white border-2 text-gray-700 text-lg font-bold p-2">SubjectID</th>
+                <th className="bg-white border-2 text-gray-700 text-lg font-bold p-2">TeacherID</th>
                 </tr>
+                </thead>
+                <tbody>
+                {subjectList.map((ele,index)=>
+                <TeacherTable key={index} Index={index} subjectName={ele} teachID={teachID}/>
                 )}
-            </div>
+                </tbody>
+            </table>
 
             <br/>
         </div>
@@ -43,7 +62,7 @@ function TimetableFormat({details}) {
     const demoFromHTML = async () => {
         const pdf = new jsPDF();
     
-        const source = document.getElementById('content');
+        //const source = ;
         //const source2 = document.getElementById('content2');
     
         const addPage = async (element) => {
@@ -53,7 +72,9 @@ function TimetableFormat({details}) {
           pdf.addPage();
         };
     
-        await addPage(source);
+        for(let i=0;i<classes.length;i++){
+            await addPage(document.getElementById(`pdf${i}`));
+        }
         // await addPage(source2);
         // await addPage(source);
         // await addPage(source2);
@@ -63,18 +84,17 @@ function TimetableFormat({details}) {
       };
 
     return(
-    <div id="content">
-        
+    <div>
+    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold mt-4 py-2 px-4 rounded focus:outline-none focus:shadow-outline" 
+    onClick={demoFromHTML}>Download in .pdf File</button>
+    <div id="content" className='flex flex-col  items-center text-center'>
         {[...Array(classes.length)].map((ele,index)=>
-        <div >
+        <div id={`pdf${index}`} >
             <TablePerClasses key={index} classe={classes[index].timetable} subjectList={subjectIdKey[index]} teachID={teachID} />
         </div>
-        
         )}
-        <button onClick={demoFromHTML}>Run Code</button>
-        {/* <TablePerClasses classe={classes[0].timetable} subjectList={subjectIdKey[0]} teachID={teachID} /><br/>
-        <TablePerClasses classe={classes[1].timetable} subjectList={subjectIdKey[1]} teachID={teachID} /><br/>
-        <TablePerClasses classe={classes[2].timetable} subjectList={subjectIdKey[2]} teachID={teachID}/><br/> */}
+        
+    </div>
     </div>
     )
  }
