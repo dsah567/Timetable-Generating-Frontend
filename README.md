@@ -1,16 +1,25 @@
-# React + Vite
+This a timetable generating system using genetics algorithm in MERN. This project is divided into two parts frotend and backend. This is frontend part (React) for backend [Click for backend part](https://github.com/dsah567/Timetable-Generating-Backend)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+If you are familar with React and Vite then download it and follow these steps
 
-Currently, two official plugins are available:
+- In terminal Type, ```npm install```
+- Again type, ```npm run dev```
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+-------
+If not familar then follow these
 
+these are youtube playlist which help me in learning React
 
-npm create vite .
+[Learn JavaScript Hindi](https://www.youtube.com/playlist?list=PLu71SKxNbfoBGh_8p_NS-ZAh6v7HhYqHW)
 
-npm install react-router-dom
-npm install -D tailwindcss
+[Learn React hindi](https://www.youtube.com/playlist?list=PLu71SKxNbfoDqgPchmvIsL4hTnJIrtige)
 
-npm i axios
+[Learn React in English](https://www.youtube.com/playlist?list=PLRAV69dS1uWQos1M1xP6LWN6C-lZvpkmq)
+
+---
+Software required to Run this project
+
+- code editor eg. ```vs code```
+- download ```NodeJs``` version 21.7.1 or higher, react works in lower version but for backend you will require this
+- In terminal Type, ```npm install```
+- Again type, ```npm run dev```
