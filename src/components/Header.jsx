@@ -29,6 +29,9 @@ export default function Header() {
                             window.location.href="/"
                             }
     
+    function toggleDropdown() {
+    const dropdownContent = document.getElementById("dropdownContent");
+     dropdownContent.classList.toggle("hidden");}                        
     // console.log("function", isLoggedIn);
         return (
             <>
@@ -41,8 +44,12 @@ export default function Header() {
                 </Link>
 
                 {/* Middle Part - Home &  (Profile & input details & generated timetable timetable) & github */}
-                <>
-                <ul className="flex space-x-4">
+                <div class="dropdown ">
+                <button onClick={toggleDropdown} className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center sm:hidden ">
+                    <span className="mr-2">Options</span>
+                    <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M20 8.586L17.414 6 10 13.414 2.586 6 0 8.586 10 18z"/></svg>
+                </button>
+                <ul id="dropdownContent" className="hidden sm:flex sm:space-x-4">
                     <li>
                     <NavLink to="/" className={({ isActive }) =>` ${ isActive ?  "text-red-500" : "text-white"}  hover:text-gray-300`}>
                                             Home </NavLink>
@@ -65,7 +72,7 @@ export default function Header() {
                                             github </NavLink>
                     </li>
                 </ul>
-                </>
+                </div>
 
                 {/* Right Part - Login&Signup / Logout */}
                 <div>
