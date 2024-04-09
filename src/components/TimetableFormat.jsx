@@ -62,9 +62,6 @@ function TimetableFormat({details}) {
     const demoFromHTML = async () => {
         const pdf = new jsPDF();
     
-        //const source = ;
-        //const source2 = document.getElementById('content2');
-    
         const addPage = async (element) => {
           const canvas = await html2canvas(element);
           const imageData = canvas.toDataURL('image/png');
@@ -75,11 +72,7 @@ function TimetableFormat({details}) {
         for(let i=0;i<classes.length;i++){
             await addPage(document.getElementById(`pdf${i}`));
         }
-        // await addPage(source2);
-        // await addPage(source);
-        // await addPage(source2);
-    
-        // Save the PDF
+
         pdf.save('Test.pdf');
       };
 
