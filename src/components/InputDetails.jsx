@@ -1,6 +1,5 @@
 import React,{useState} from 'react'
 import axios from 'axios';
-import { redirect } from 'react-router-dom';
 
 
 function InputDetails() {
@@ -106,7 +105,7 @@ function InputDetails() {
                                             specificSub:specificSub})
                 .then((res)=>console.log(res.data.message))
                 .catch((err)=>console.log(err))
-              //  window.location.href="/generatedtimetable"
+               window.location.href="/generatedtimetable"
                 
   };
 
