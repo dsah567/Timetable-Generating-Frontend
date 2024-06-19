@@ -23,7 +23,6 @@ function TablePerClasses({classe,subjectList,teachID}){
     let a =1
     return (
         <div>
-            <div className="bg-white border-2 text-gray-700  p-2">A project Developed By RRIT CSE department student of final year batch 2024 </div>
             <table className='table-auto'>
             <thead>
             <tr>
